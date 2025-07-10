@@ -2,6 +2,7 @@ import Header from './components/Header/Header';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import Home from './pages/Home/Home';
 import Favorites from './pages/Favorites/Favorites';
+import NotFound from './pages/NotFound/NotFound';
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

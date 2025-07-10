@@ -2,6 +2,7 @@
   --black: #000;
   --white: #fff;
   --orange: #f50;
+  --orange-intense: #de4b02;
 }
 
 * {
@@ -9,6 +10,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
 }
 
 body {
