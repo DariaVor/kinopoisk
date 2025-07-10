@@ -1,0 +1,28 @@
+.nav {
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding: 20px;
+}
+
+.link {
+  font-size: 18px;
+  text-decoration: none;
+  color: var(--white);
+  opacity: 0.7;
+  transition: opacity 0.3s ease-in-out;
+
+  border: solid transparent;
+  border-width: 0 0 2px 0;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.active {
+  opacity: 1;
+  border-color: var(--orange);
+}

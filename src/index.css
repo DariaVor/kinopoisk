@@ -1,6 +1,17 @@
+:root {
+  --black: #000;
+  --white: #fff;
+  --orange: #f50;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Nunito Sans', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
 }
