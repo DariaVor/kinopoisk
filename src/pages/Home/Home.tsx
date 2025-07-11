@@ -1,47 +1,56 @@
+import { useGetMoviesInfiniteQuery } from '../../features/api/moviesApi';
 import MoviePreview from '../../components/MoviePreview/MoviePreview';
+import { useEffect, useRef } from 'react';
+import Skeleton from '../../components/MoviePreview/Skeleton';
+import Message from '../../components/Message/Message';
 
 import s from './Home.module.css';
 
-const movies = [
-  {
-    id: 1,
-    title: 'Очень очень очень длинное название фильма',
-    img: 'https://kinopoiskapiunofficial.tech/images/posters/kp/2022/07/26/1/4/1/4b0e0d5e-5c7d-4b3e-a3b9-3e2d0b2c6d2d.jpg',
-    year: 2022,
-    rating: 8.9,
-  },
-  {
-    id: 2,
-    title: 'Очень очень очень длинное название фильма',
-    img: 'https://kinopoiskapiunofficial.tech/images/posters/kp/2022/07/26/1/4/1/4b0e0d5e-5c7d-4b3e-a3b9-3e2d0b2c6d2d.jpg',
-    year: 2023,
-    rating: 9.2,
-  },
-  {
-    id: 3,
-    title: 'Очень очень очень длинное название фильма',
-    img: 'https://kinopoiskapiunofficial.tech/images/posters/kp/2022/07/26/1/4/1/4b0e0d5e-5c7d-4b3e-a3b9-3e2d0b2c6d2d.jpg',
-    year: 2021,
-    rating: 6.1,
-  },
-  {
-    id: 4,
-    title: 'Очень очень очень длинное название фильма',
-    img: 'https://kinopoiskapiunofficial.tech/images/posters/kp/2022/07/26/1/4/1/4b0e0d5e-5c7d-4b3e-a3b9-3e2d0b2c6d2d.jpg',
-    year: 2020,
-    rating: 8.3,
-  },
-];
-
 const Home: React.FC = () => {
+  const observerRef = useRef<HTMLDivElement | null>(null);
+  const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isLoading, isError } =
+    useGetMoviesInfiniteQuery('', { initialPageParam: 1 });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    });
+    if (observerRef.current) observer.observe(observerRef.current);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  const movies = data?.pages.flatMap((page) => page.docs) ?? [];
+
+  const skeletons = [...Array(8)].map((_, index) => <Skeleton key={index} />);
+  console.log(movies);
+
   return (
     <main>
       <div className={s.movies}>
-        {movies.map((movie) => (
-          <MoviePreview key={movie.id} movie={movie} />
-        ))}
+        {isLoading && skeletons}
+        {isError && <Message>Произошла ошибка. Повторите попытку позже</Message>}
+        {movies.map(
+          (movie) => (
+            // movie?.poster?.previewUrl && movie.name ? (
+            <MoviePreview
+              key={movie.id}
+              movie={{
+                id: movie.id,
+                title: movie.name,
+                img: movie.poster?.previewUrl || '',
+                year: movie.year,
+                rating: movie.rating?.kp || 0,
+              }}
+            />
+          ),
+          // ) : null,
+        )}
       </div>
+      <div ref={observerRef}></div>
     </main>
   );
 };
+
 export default Home;
