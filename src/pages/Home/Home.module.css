@@ -1,0 +1,13 @@
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 40px;
+
+  max-width: calc(300px * 5 + 40px * 4);
+  margin: 0 auto;
+
+  @media (min-width: 1490px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
