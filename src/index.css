@@ -3,7 +3,9 @@
   --white: #fff;
   --orange: #f50;
   --orange-intense: #de4b02;
-  --grey: #333;
+  --grey-dark: #111;
+  --grey-medium: #222;
+  --grey-light: #333;
 }
 
 * {

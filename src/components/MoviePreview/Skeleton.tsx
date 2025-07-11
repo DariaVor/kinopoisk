@@ -6,8 +6,8 @@ const Skeleton: React.FC = () => (
     width={300}
     height={450}
     viewBox="0 0 300 450"
-    backgroundColor="#1a1a1a"
-    foregroundColor="#2b2b2b"
+    backgroundColor="#111"
+    foregroundColor="#222"
   >
     <rect x="0" y="0" rx="12" ry="12" width="300" height="450" />
   </ContentLoader>

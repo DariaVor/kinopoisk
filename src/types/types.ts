@@ -20,3 +20,11 @@ export interface MoviesResponse {
   page: number;
   pages: number;
 }
+
+export interface MovieFilters {
+  genres?: string;
+  ratingFrom?: string;
+  ratingTo?: string;
+  yearFrom?: string;
+  yearTo?: string;
+}

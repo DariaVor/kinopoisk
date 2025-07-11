@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { MoviesResponse } from '../../types/types';
+import type { MoviesResponse, MovieFilters } from '../../types/types';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
@@ -13,12 +13,19 @@ export const moviesApi = createApi({
   endpoints: (build) => ({
     getMovies: build.infiniteQuery<MoviesResponse, string, number>({
       query: ({ queryArg, pageParam }) => {
+        const query = Object.fromEntries(new URLSearchParams(queryArg)) as MovieFilters;
+
         return {
           url: `/movie`,
           params: {
             page: pageParam,
             limit: 50,
-            ...Object.fromEntries(new URLSearchParams(queryArg)),
+            'genres.name': query.genres?.split(','),
+            'rating.kp':
+              query.ratingFrom && query.ratingTo
+                ? `${query.ratingFrom}-${query.ratingTo}`
+                : undefined,
+            year: query.yearFrom && query.yearTo ? `${query.yearFrom}-${query.yearTo}` : undefined,
           },
         };
       },
