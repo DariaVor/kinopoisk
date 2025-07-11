@@ -1,4 +1,8 @@
+import { useParams } from 'react-router';
+
 const Movie: React.FC = () => {
-  return <div>Movie</div>;
+  const { id } = useParams();
+
+  return <div>Movie {id}</div>;
 };
 export default Movie;

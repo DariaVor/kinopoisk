@@ -1,9 +1,11 @@
 import { useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
 
 import s from './Filters.module.css';
 
 const genresList = ['боевик', 'комедия', 'драма', 'ужасы', 'фантастика'];
+const currentYear = new Date().getFullYear();
 
 const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -22,13 +24,34 @@ const Filters = () => {
     setYearTo(searchParams.get('yearTo') || '');
   }, [searchParams]);
 
-  const updateParam = (key: string, value: string) => {
-    if (value) {
-      searchParams.set(key, value);
-    } else {
-      searchParams.delete(key);
-    }
-    setSearchParams(searchParams, { replace: true });
+  useDebouncedEffect(
+    () => {
+      if (isValidRating(ratingFrom)) searchParams.set('ratingFrom', ratingFrom);
+      else searchParams.delete('ratingFrom');
+
+      if (isValidRating(ratingTo)) searchParams.set('ratingTo', ratingTo);
+      else searchParams.delete('ratingTo');
+
+      if (isValidYear(yearFrom)) searchParams.set('yearFrom', yearFrom);
+      else searchParams.delete('yearFrom');
+
+      if (isValidYear(yearTo)) searchParams.set('yearTo', yearTo);
+      else searchParams.delete('yearTo');
+
+      setSearchParams(searchParams, { replace: true });
+    },
+    [ratingFrom, ratingTo, yearFrom, yearTo],
+    500,
+  );
+
+  const isValidRating = (val: string) => {
+    const num = parseFloat(val);
+    return !isNaN(num) && num >= 0 && num <= 10;
+  };
+
+  const isValidYear = (val: string) => {
+    const num = parseInt(val);
+    return !isNaN(num) && num >= 1990 && num <= currentYear;
   };
 
   const toggleGenre = (genre: string) => {
@@ -51,8 +74,6 @@ const Filters = () => {
     setYearTo('');
     setSearchParams({});
   };
-
-  const currentYear = new Date().getFullYear();
 
   return (
     <div className={s.wrapper}>
@@ -81,10 +102,7 @@ const Filters = () => {
             max="10"
             placeholder="от"
             value={ratingFrom}
-            onChange={(e) => {
-              setRatingFrom(e.target.value);
-              updateParam('ratingFrom', e.target.value);
-            }}
+            onChange={(e) => setRatingFrom(e.target.value)}
           />
           <input
             type="number"
@@ -92,10 +110,7 @@ const Filters = () => {
             max="10"
             placeholder="до"
             value={ratingTo}
-            onChange={(e) => {
-              setRatingTo(e.target.value);
-              updateParam('ratingTo', e.target.value);
-            }}
+            onChange={(e) => setRatingTo(e.target.value)}
           />
         </div>
       </div>
@@ -109,10 +124,7 @@ const Filters = () => {
             max={currentYear}
             placeholder="от"
             value={yearFrom}
-            onChange={(e) => {
-              setYearFrom(e.target.value);
-              updateParam('yearFrom', e.target.value);
-            }}
+            onChange={(e) => setYearFrom(e.target.value)}
           />
           <input
             type="number"
@@ -120,10 +132,7 @@ const Filters = () => {
             max={currentYear}
             placeholder="до"
             value={yearTo}
-            onChange={(e) => {
-              setYearTo(e.target.value);
-              updateParam('yearTo', e.target.value);
-            }}
+            onChange={(e) => setYearTo(e.target.value)}
           />
         </div>
       </div>
