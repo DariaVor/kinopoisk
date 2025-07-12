@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { MoviesResponse, MovieFilters } from '../../types/types';
+import type { Movie, MoviesResponse, MovieFilters } from '../../types/types';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
@@ -34,7 +34,10 @@ export const moviesApi = createApi({
         getNextPageParam: (_lastPage, _allPages, lastPageParam) => lastPageParam + 1,
       },
     }),
+    getMovieById: build.query<Movie, number>({
+      query: (id) => `/movie/${id}`,
+    }),
   }),
 });
 
-export const { useGetMoviesInfiniteQuery } = moviesApi;
+export const { useGetMoviesInfiniteQuery, useGetMovieByIdQuery } = moviesApi;
