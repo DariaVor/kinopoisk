@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
-import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
-import { currentYear, genresList } from '../../constants/constants';
+import { useDebouncedEffect } from '@hooks/useDebouncedEffect';
+import { currentYear, genresList } from '@constants';
 
 import s from './Filters.module.css';
 

@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
-import { useGetMovieByIdQuery } from '../../features/api/moviesApi';
-import Message from '../../components/Message/Message';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, removeFavorite } from '../../features/favorites/favoritesSlice';
-import type { RootState } from '../../features/store';
-import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
-import { useConfirmationModal } from '../../hooks/useConfirmationModal';
-import { maxDescription } from '../../constants/constants';
-import Loader from '../../components/Loader/Loader';
+import { useGetMovieByIdQuery } from '@features/api/moviesApi';
+import { addFavorite, removeFavorite } from '@features/favorites/favoritesSlice';
+import type { RootState } from '@features/store';
+import { useConfirmationModal } from '@hooks/useConfirmationModal';
+import { ConfirmModal, Loader, Message } from '@components';
+import { maxDescription } from '@constants';
 
 import s from './Movie.module.css';
 

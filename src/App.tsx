@@ -1,9 +1,6 @@
-import Header from './components/Header/Header';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import Home from './pages/Home/Home';
-import Favorites from './pages/Favorites/Favorites';
-import NotFound from './pages/NotFound/NotFound';
-import Movie from './pages/Movie/Movie';
+import { Favorites, Home, Movie, NotFound } from '@pages';
+import { Header } from '@components';
 
 const App: React.FC = () => {
   return (

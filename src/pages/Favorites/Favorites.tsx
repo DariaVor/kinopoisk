@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
-import type { RootState } from '../../features/store';
-import MoviePreview from '../../components/MoviePreview/MoviePreview';
-import Message from '../../components/Message/Message';
+import type { RootState } from '@features/store';
+import { Message, MoviePreview } from '@components';
 
 const Favorites: React.FC = () => {
   const favorites = useSelector((state: RootState) => state.favorites);

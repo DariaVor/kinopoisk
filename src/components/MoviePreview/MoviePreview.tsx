@@ -1,9 +1,9 @@
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavorite, removeFavorite } from '../../features/favorites/favoritesSlice';
-import type { RootState } from '../../features/store';
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
-import { useConfirmationModal } from '../../hooks/useConfirmationModal';
+import { addFavorite, removeFavorite } from '@features/favorites/favoritesSlice';
+import type { RootState } from '@features/store';
+import ConfirmModal from '@components/ConfirmModal/ConfirmModal';
+import { useConfirmationModal } from '@hooks/useConfirmationModal';
 
 import s from './MoviePreview.module.css';
 

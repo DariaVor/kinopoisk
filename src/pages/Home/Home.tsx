@@ -1,10 +1,7 @@
-import { useSearchParams } from 'react-router';
-import { useGetMoviesInfiniteQuery } from '../../features/api/moviesApi';
-import MoviePreview from '../../components/MoviePreview/MoviePreview';
 import { useEffect, useRef } from 'react';
-import Skeleton from '../../components/MoviePreview/Skeleton';
-import Message from '../../components/Message/Message';
-import Filters from '../../components/Filters/Filters';
+import { useSearchParams } from 'react-router';
+import { useGetMoviesInfiniteQuery } from '@features/api/moviesApi';
+import { Filters, Message, MoviePreview, Skeleton } from '@components';
 
 const Home: React.FC = () => {
   const [searchParams] = useSearchParams();

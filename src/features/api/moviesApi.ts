@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Movie, MoviesResponse, MovieFilters } from '../../types/types';
-import { currentYear, maxRating, minRating, minYear } from '../../constants/constants';
+import { currentYear, maxRating, minRating, minYear } from '@constants';
+import type { Movie, MovieFilters, MoviesResponse } from '@types';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
