@@ -27,7 +27,7 @@
   line-height: 1.2;
 }
 
-.meta {
+.info {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;

@@ -20,6 +20,7 @@ export const moviesApi = createApi({
           params: {
             page: pageParam,
             limit: 50,
+            notNullFields: 'poster.url',
             'genres.name': query.genres?.split(','),
             'rating.kp':
               query.ratingFrom && query.ratingTo

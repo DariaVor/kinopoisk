@@ -10,7 +10,7 @@ const Movie: React.FC = () => {
   const { data: movie, isLoading, isError } = useGetMovieByIdQuery(movieId);
 
   if (isLoading) return <Message>Загрузка...</Message>;
-  if (isError || !movie) return <Message>Ошибка загрузки фильма</Message>;
+  if (isError || !movie) return <Message>Ошибка при загрузке фильма. Повторите позже.</Message>;
 
   return (
     <div className={s.wrapper}>
@@ -23,9 +23,18 @@ const Movie: React.FC = () => {
       <div className={s.content}>
         <h1 className={s.title}>{movie.name}</h1>
 
-        <div className={s.meta}>
-          <span className={s.rating}>Рейтинг: {movie.rating.kp?.toFixed(1) || 'N/A'}</span>
-          <span className={s.year}>Год: {movie.year}</span>
+        <div className={s.info}>
+          <span>Рейтинг: {movie.rating.kp?.toFixed(1) || 'N/A'}</span>
+          <span>
+            Дата выхода:{' '}
+            {movie.premiere?.world
+              ? new Date(movie.premiere.world).toLocaleDateString('ru-RU', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                })
+              : 'неизвестна'}
+          </span>
         </div>
 
         <div className={s.genres}>

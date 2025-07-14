@@ -11,6 +11,9 @@ export interface Movie {
     previewUrl: string;
   };
   genres: { name: string }[];
+  premiere?: {
+    world?: string;
+  };
 }
 
 export interface MoviesResponse {
