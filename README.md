@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+# Кинопоиск
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA-приложение для просмотра информации о фильмах с использованием React, TypeScript и API Кинопоиска.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+## Инструкция по запуску проекта
+1. Клонировать репозиторий:
+```bash
+git clone git@github.com:DariaVor/kinopoisk.git
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+cd kinopoisk
 ```
+2. Установить зависимости:
+```bash
+npm i
+```
+3. Создать файл .env в корне проекта и добавить в него API ключ:
+```env
+VITE_KINOPOISK_API_KEY=
+```
+4. Запустить приложение в режиме разработки:
+```bash
+npm run dev
+```
+5. Открыть в браузере http://localhost:5173
+
+## Деплой
+Приложение задеплоено на Vercel и доступно по ссылке:
+https://kinopoisk-ebon.vercel.app/
+
+## Стек
+- React
+- TypeScript
+- Redux Toolkit (включая RTK Query для работы с API)
+- React Router
+- CSS Modules + адаптивная верстка
+- ESLint, Prettier
+- Vite
+
+## Основной функционал
+- Просмотр фильмов с бесконечной подгрузкой (50 фильмов за запрос).
+- Фильтрация по жанрам, рейтингу и году выпуска.
+- Синхронизация фильтров с URL-параметрами.
+- Просмотр детальной информации о каждом фильме.
+- Добавление и удаление фильмов из списка "Избранное" с подтверждением через модальное окно.
+- Просмотр списка избранных фильмов.
