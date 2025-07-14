@@ -27,6 +27,8 @@ export const moviesApi = createApi({
                 ? `${query.ratingFrom}-${query.ratingTo}`
                 : undefined,
             year: query.yearFrom && query.yearTo ? `${query.yearFrom}-${query.yearTo}` : undefined,
+            sortField: 'rating.kp',
+            sortType: -1,
           },
         };
       },
