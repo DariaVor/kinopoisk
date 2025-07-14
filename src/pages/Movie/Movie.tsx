@@ -8,6 +8,7 @@ import type { RootState } from '../../features/store';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import { useConfirmationModal } from '../../hooks/useConfirmationModal';
 import { maxDescription } from '../../constants/constants';
+import Loader from '../../components/Loader/Loader';
 
 import s from './Movie.module.css';
 
@@ -30,9 +31,9 @@ const Movie: React.FC = () => {
     close();
   };
 
-  const toggleDescription = () => setIsExpanded((prev) => !prev); 
+  const toggleDescription = () => setIsExpanded((prev) => !prev);
 
-  if (isLoading) return <Message>Загрузка...</Message>;
+  if (isLoading) return <Loader />;
   if (isError || !movie) return <Message>Произошла ошибка. Повторите попытку позже.</Message>;
 
   const isLongDescription = movie.description && movie.description.length > maxDescription;
