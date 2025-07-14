@@ -7,6 +7,10 @@
   --grey-medium: #222;
   --grey-light: #333;
   --yellow: #fcc858;
+
+  --low-rate-color: #d71c1c;
+  --medium-rate-color: #777;
+  --high-rate-color: #3bb33b;
 }
 
 * {

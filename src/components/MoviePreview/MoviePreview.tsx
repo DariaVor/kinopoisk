@@ -49,7 +49,13 @@ const MoviePreview: React.FC<{ movie: MoviePreviewProps }> = ({ movie }) => {
           ) : (
             <div className={s.noImage}>Нет постера</div>
           )}
-          <p className={s.rating}>{movie.rating.toFixed(1)}</p>
+          <p
+            className={`${s.rating} ${
+              movie.rating < 4 ? s.low : movie.rating < 7 ? s.medium : s.high
+            }`}
+          >
+            {movie.rating.toFixed(1)}
+          </p>
           <div className={s.info}>
             <p className={s.title}>{movie.title}</p>
             <p className={s.year}>{movie.year}</p>

@@ -71,12 +71,24 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  background-color: var(--orange-intense);
   font-weight: bold;
   padding: 4px 6px;
   font-size: 14px;
   border-radius: 4px;
   z-index: 3;
+  color: var(--white);
+}
+
+.low {
+  background-color: var(--low-rate-color);
+}
+
+.medium {
+  background-color: var(--medium-rate-color);
+}
+
+.high {
+  background-color: var(--high-rate-color);
 }
 
 .favBtn {
