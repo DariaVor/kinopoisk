@@ -1,5 +1,5 @@
 .wrapper {
-  margin: 40px;
+  margin: 0 auto;
   padding: 20px;
   background-color: var(--grey-dark);
   display: flex;
@@ -9,6 +9,11 @@
   align-items: center;
   border: 1px solid var(--grey-light);
   border-radius: 12px;
+  max-width: 1280px;
+
+  @media (max-width: 1280px) {
+    margin: 20px 40px;
+  }
 }
 
 .filter {

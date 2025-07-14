@@ -7,7 +7,6 @@ export interface Movie {
     kp: number;
   };
   poster?: {
-    url: string;
     previewUrl: string;
   };
   genres: { name: string }[];

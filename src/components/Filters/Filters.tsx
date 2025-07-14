@@ -1,11 +1,9 @@
 import { useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
+import { currentYear, genresList } from '../../constants/constants';
 
 import s from './Filters.module.css';
-
-const genresList = ['боевик', 'комедия', 'драма', 'ужасы', 'фантастика'];
-const currentYear = new Date().getFullYear();
 
 const Filters = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -1,11 +1,18 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  max-width: 1000px;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 900px;
   margin: 60px auto;
   padding: 20px;
-  color: var(--white);
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+  }
 }
 
 .poster {
@@ -13,12 +20,20 @@
   max-height: 400px;
   object-fit: cover;
   border-radius: 12px;
+
+  @media (min-width: 768px) {
+    width: 300px;
+    height: auto;
+    flex-shrink: 0;
+  }
 }
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .title {
@@ -43,10 +58,10 @@
 
 .chip {
   padding: 6px 12px;
-  background-color: var(--orange);
+  border: 1px solid var(--yellow);
+  color: var(--yellow);
   border-radius: 20px;
   font-size: 14px;
-  opacity: 0.85;
 }
 
 .description {
@@ -67,19 +82,59 @@
   font-size: 18px;
 }
 
-@media (min-width: 768px) {
-  .wrapper {
-    flex-direction: row;
-    align-items: flex-start;
-  }
+.btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  text-align: center;
+}
 
-  .poster {
-    width: 300px;
-    height: auto;
-    flex-shrink: 0;
-  }
+.btnAdd {
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  transition: background-color 0.3s ease-in;
 
-  .content {
-    flex: 1;
+  &:hover {
+    background: var(--orange-intense);
+  }
+}
+
+.btnRemove {
+  background: transparent;
+  color: var(--orange);
+  border: 1px solid var(--orange);
+  transition:
+    background-color 0.3s ease-in,
+    color 0.3s ease-in;
+
+  &:hover {
+    background: var(--orange);
+    color: var(--white);
+  }
+}
+
+.clamped {
+  max-height: 100px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  color: var(--orange);
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: -10px;
+  align-self: flex-start;
+  padding: 0;
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--orange-intense);
   }
 }

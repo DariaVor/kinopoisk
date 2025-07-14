@@ -6,8 +6,6 @@ import Skeleton from '../../components/MoviePreview/Skeleton';
 import Message from '../../components/Message/Message';
 import Filters from '../../components/Filters/Filters';
 
-import s from './Home.module.css';
-
 const Home: React.FC = () => {
   const [searchParams] = useSearchParams();
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -29,14 +27,15 @@ const Home: React.FC = () => {
 
   const movies = data?.pages.flatMap((page) => page.docs) ?? [];
 
+  if (isError) return <Message>Произошла ошибка. Повторите попытку позже.</Message>;
+
   return (
     <main>
       <section>
         <Filters />
       </section>
-      <section className={s.movies}>
+      <section className="movies">
         {isLoading && [...Array(8)].map((_, i) => <Skeleton key={i} />)}
-        {isError && <Message>Произошла ошибка. Повторите попытку позже.</Message>}
         {movies.map((movie) => (
           <MoviePreview
             key={movie.id}

@@ -1,21 +1,46 @@
+import { useState } from 'react';
 import { useParams } from 'react-router';
 import { useGetMovieByIdQuery } from '../../features/api/moviesApi';
 import Message from '../../components/Message/Message';
+import { useDispatch, useSelector } from 'react-redux';
+import { addFavorite, removeFavorite } from '../../features/favorites/favoritesSlice';
+import type { RootState } from '../../features/store';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
+import { useConfirmationModal } from '../../hooks/useConfirmationModal';
+import { maxDescription } from '../../constants/constants';
 
 import s from './Movie.module.css';
 
 const Movie: React.FC = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const movieId = Number(id);
   const { data: movie, isLoading, isError } = useGetMovieByIdQuery(movieId);
 
+  const favorites = useSelector((state: RootState) => state.favorites);
+  const isFavorite = favorites.some((fav) => fav.id === movieId);
+
+  const { action, isOpen, open, close } = useConfirmationModal();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleConfirm = () => {
+    if (!movie) return;
+    if (action === 'add') dispatch(addFavorite(movie));
+    if (action === 'remove') dispatch(removeFavorite(movieId));
+    close();
+  };
+
+  const toggleDescription = () => setIsExpanded((prev) => !prev); 
+
   if (isLoading) return <Message>Загрузка...</Message>;
-  if (isError || !movie) return <Message>Ошибка при загрузке фильма. Повторите позже.</Message>;
+  if (isError || !movie) return <Message>Произошла ошибка. Повторите попытку позже.</Message>;
+
+  const isLongDescription = movie.description && movie.description.length > maxDescription;
 
   return (
     <div className={s.wrapper}>
-      {movie.poster?.url ? (
-        <img className={s.poster} src={movie.poster.url} alt={movie.name} />
+      {movie.poster?.previewUrl ? (
+        <img className={s.poster} src={movie.poster.previewUrl} alt={movie.name} />
       ) : (
         <div className={s.noPoster}>Нет постера</div>
       )}
@@ -45,7 +70,29 @@ const Movie: React.FC = () => {
           ))}
         </div>
 
-        <p className={s.description}>{movie.description || 'Описание недоступно'}</p>
+        <p className={`${s.description} ${!isExpanded && isLongDescription ? s.clamped : ''}`}>
+          {movie.description || 'Описание недоступно'}
+        </p>
+
+        {isLongDescription && (
+          <button className={s.toggleBtn} onClick={toggleDescription}>
+            {isExpanded ? 'Скрыть' : 'Читать дальше'}
+          </button>
+        )}
+
+        <button
+          className={`${s.btn} ${isFavorite ? s.btnRemove : s.btnAdd}`}
+          onClick={isFavorite ? () => open('remove') : () => open('add')}
+        >
+          {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
+        </button>
+
+        <ConfirmModal
+          isOpen={isOpen}
+          onConfirm={handleConfirm}
+          onCancel={close}
+          text={action === 'add' ? 'Добавить фильм в избранное?' : 'Удалить фильм из избранного?'}
+        />
       </div>
     </div>
   );

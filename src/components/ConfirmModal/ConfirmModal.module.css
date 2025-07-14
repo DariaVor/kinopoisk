@@ -1,0 +1,61 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal {
+  background: var(--grey-dark);
+  padding: 40px;
+  margin: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+
+  p {
+    font-size: 20px;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.confirm {
+  background: var(--orange);
+  border: none;
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in;
+  font-size: 16px;
+
+  &:hover {
+    background: var(--orange-intense);
+  }
+}
+
+.cancel {
+  background: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.3s ease-in;
+  font-size: 16px;
+
+  &:hover {
+    opacity: 1;
+  }
+}
