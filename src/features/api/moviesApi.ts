@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Movie, MoviesResponse, MovieFilters } from '../../types/types';
+import { currentYear, maxRating, minRating, minYear } from '../../constants/constants';
 
 export const moviesApi = createApi({
   reducerPath: 'moviesApi',
@@ -25,8 +26,20 @@ export const moviesApi = createApi({
             'rating.kp':
               query.ratingFrom && query.ratingTo
                 ? `${query.ratingFrom}-${query.ratingTo}`
-                : undefined,
-            year: query.yearFrom && query.yearTo ? `${query.yearFrom}-${query.yearTo}` : undefined,
+                : query.ratingFrom
+                  ? `${query.ratingFrom}-${maxRating}`
+                  : query.ratingTo
+                    ? `${minRating}-${query.ratingTo}`
+                    : undefined,
+
+            year:
+              query.yearFrom && query.yearTo
+                ? `${query.yearFrom}-${query.yearTo}`
+                : query.yearFrom
+                  ? `${query.yearFrom}-${currentYear}`
+                  : query.yearTo
+                    ? `${minYear}-${query.yearTo}`
+                    : undefined,
             sortField: 'rating.kp',
             sortType: -1,
           },
